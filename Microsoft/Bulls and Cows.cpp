@@ -11,11 +11,21 @@ public:
                 guess.erase(i,1);
             }
         }
-
-        //use set: WA
-        set<char> s1(secret.begin(), secret.end()), s2(guess.begin(), guess.end());
-        vector<char> tmp(4);
-        B = set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(), tmp.begin()) - tmp.begin();
+        
+        sort(secret.begin(), secret.end());
+        sort(guess.begin(), guess.end());
+        int i = 0, j = 0;
+        while(i < secret.size() && j < secret.size()){
+            if(secret[i] == guess[j]){
+                B++;
+                i++;
+                j++;
+            }else if(secret[i] < guess[j]){
+                i++;
+            }else{
+                j++;
+            }
+        }
         
         return to_string(A) + "A" + to_string(B) + "B";
     }
